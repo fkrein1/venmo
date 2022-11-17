@@ -6,7 +6,6 @@ import { AppError } from "../errors/AppError";
 interface IToken {
   username: string;
   accountId: string;
-  sub: string;
 }
 
 export function ensureAuthenticated(
@@ -24,8 +23,6 @@ export function ensureAuthenticated(
       token,
       process.env.JWT_SECRET as string
     ) as IToken;
-
-    console.log(decryptedToken);
 
     req.username = decryptedToken.username;
     req.accountId = decryptedToken.accountId;
