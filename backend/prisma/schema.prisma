@@ -13,7 +13,7 @@ datasource db {
 model Accounts {
   id      String         @id @default(uuid())
   balance Float
-  Users   Users[]
+  Users   Users?
   Debits  Transactions[] @relation(name: "debit")
   Credits Transactions[] @relation(name: "credit")
 }
