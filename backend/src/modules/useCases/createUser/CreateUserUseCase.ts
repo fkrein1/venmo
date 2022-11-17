@@ -31,10 +31,13 @@ export class CreateUserUseCase {
       },
     });
 
-    const token = sign({ username }, process.env.JWT_SECRET as string, {
-      subject: newUser.id,
-      expiresIn: "24h",
-    });
+    const token = sign(
+      { username, accountId: newUser.accountId },
+      process.env.JWT_SECRET as string,
+      {
+        expiresIn: "24h",
+      }
+    );
 
     return { token };
   }

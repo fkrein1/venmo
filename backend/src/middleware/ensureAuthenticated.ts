@@ -5,6 +5,7 @@ import { AppError } from "../errors/AppError";
 
 interface IToken {
   username: string;
+  accountId: string;
   sub: string;
 }
 
@@ -24,7 +25,11 @@ export function ensureAuthenticated(
       process.env.JWT_SECRET as string
     ) as IToken;
 
+    console.log(decryptedToken);
+
     req.username = decryptedToken.username;
+    req.accountId = decryptedToken.accountId;
+
     return next();
   } catch (err) {
     throw new AppError(401, "Invalid token");

@@ -20,10 +20,13 @@ export class AuthenticateUserUseCase {
     const validPassword = await compare(password, userAlreadyExists.password);
     if (!validPassword) throw new AppError(401, "Invalid user or password");
 
-    const token = sign({ username }, process.env.JWT_SECRET as string, {
-      subject: userAlreadyExists.id,
-      expiresIn: "24h",
-    });
+    const token = sign(
+      { username, accountId: userAlreadyExists.accountId },
+      process.env.JWT_SECRET as string,
+      {
+        expiresIn: "24h",
+      }
+    );
     return { token };
   }
 }
