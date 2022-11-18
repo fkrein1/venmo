@@ -1,9 +1,9 @@
-import { LoginContainer } from "./styles";
+import { LoginContainer } from './styles'
 
-export function Login() {
+export function Login () {
   return (
     <LoginContainer>
-      
+
     </LoginContainer>
   )
 }
