@@ -19,8 +19,8 @@ export function Header () {
           </Link>
         </Logo>
         <Navigation>
-          <Link to="/">Log In</Link>
-          <Link to="/">
+          <Link to="/login">Log In</Link>
+          <Link to="/signup">
             <MainNav>
               <img src={icon} />
               <span>Get Venmo</span>

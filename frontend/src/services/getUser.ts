@@ -10,10 +10,13 @@ interface IUser {
 }
 
 export async function getUser (jwt: string): Promise<IUser> {
-  const { data } = await api.post('/auth/me', {}, {
-    headers: {
-      Authorization: `Bearer ${jwt}`
+  const { data } = await api.get(
+    '/auth/me',
+    {
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
     }
-  })
+  )
   return data
 }
