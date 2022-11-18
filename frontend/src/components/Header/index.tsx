@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
-import logo from '../../assets/logo.svg';
+import { Link } from 'react-router-dom'
+import icon from '../../assets/icon.svg'
+import logo from '../../assets/logo.svg'
 import {
   HeaderContainer,
   HeaderWrapper,
   Logo,
   MainNav,
-  Navigation,
-} from './styles';
+  Navigation
+} from './styles'
 
-export function Header() {
+export function Header () {
   return (
     <HeaderContainer>
       <HeaderWrapper>
@@ -29,5 +29,5 @@ export function Header() {
         </Navigation>
       </HeaderWrapper>
     </HeaderContainer>
-  );
+  )
 }
