@@ -1,7 +1,7 @@
-import { HeroImage, HeroText, HomeContainer, HomeGrid } from './styles';
 import heroImage from '../../assets/hero.png'
+import { HeroImage, HeroText, HomeContainer, HomeGrid } from './styles'
 
-export function Home() {
+export function Home () {
   return (
     <HomeContainer>
       <HomeGrid>
@@ -16,5 +16,5 @@ export function Home() {
       </HeroImage>
       </HomeGrid>
     </HomeContainer>
-  );
+  )
 }

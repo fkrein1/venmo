@@ -1,11 +1,11 @@
-import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import ScrollToTop from './components/ScrollToTop';
-import { Router } from './Router';
-import { GlobalStyle } from './styles/global';
-import { defaultTheme } from './styles/themes/default';
+import { BrowserRouter } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+import ScrollToTop from './components/ScrollToTop'
+import { Router } from './Router'
+import { GlobalStyle } from './styles/global'
+import { defaultTheme } from './styles/themes/default'
 
-function App() {
+function App () {
   return (
     <ThemeProvider theme={defaultTheme}>
       <BrowserRouter>
@@ -14,7 +14,7 @@ function App() {
         <Router />
       </BrowserRouter>
     </ThemeProvider>
-  );
+  )
 }
 
-export default App;
+export default App
