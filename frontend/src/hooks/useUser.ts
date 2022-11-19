@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import { getToken } from '../helpers/token'
+import { getAuthToken } from '../helpers/authToken'
 import { getUser } from '../services/getUser'
 
 export function useUser () {
-  const token = getToken() ?? 'invalidtoken'
+  const token = getAuthToken() || 'invalidtoken'
   return useQuery({
     queryKey: ['user'],
-    queryFn: () => getUser(token),
-    retry: 1
+    queryFn: () => getUser(token)
   })
 }

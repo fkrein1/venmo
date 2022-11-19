@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import * as z from 'zod'
 import icon from '../../assets/icon.svg'
-import { setToken } from '../../helpers/token'
+import { setAuthToken } from '../../helpers/authToken'
+import { useAuth } from '../../hooks/useAuth'
 import { postSignup } from '../../services/postSignup'
 import {
   FormError,
@@ -27,6 +28,8 @@ export type SignupFormData = z.infer<typeof SingupUserSchema>
 
 export function Signup () {
   const navigate = useNavigate()
+  const { setLoggedIn } = useAuth()
+
   const {
     register,
     handleSubmit,
@@ -44,7 +47,8 @@ export function Signup () {
     const { username, password } = data
     try {
       const { token } = await postSignup(username, password)
-      setToken(token)
+      setAuthToken(token)
+      setLoggedIn(true)
       navigate('/transactions')
     } catch (err) {
       reset()

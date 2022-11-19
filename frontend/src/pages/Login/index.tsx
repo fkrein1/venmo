@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import * as z from 'zod'
 import icon from '../../assets/icon.svg'
-import { setToken } from '../../helpers/token'
+import { setAuthToken } from '../../helpers/authToken'
+import { useAuth } from '../../hooks/useAuth'
 import { postLogin } from '../../services/postLogin'
 import {
   FormError,
@@ -29,6 +30,7 @@ export type LoginFormData = z.infer<typeof LoginUserSchema>
 
 export function Login () {
   const navigate = useNavigate()
+  const { setLoggedIn } = useAuth()
   const {
     register,
     handleSubmit,
@@ -46,8 +48,9 @@ export function Login () {
     const { username, password } = data
     try {
       const { token } = await postLogin(username, password)
-      setToken(token)
+      setAuthToken(token)
       navigate('/transactions')
+      setLoggedIn(true)
     } catch (err) {
       reset()
       alert('Invalid username or password')
