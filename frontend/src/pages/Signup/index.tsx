@@ -34,7 +34,7 @@ export function Signup () {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<SignupFormData>({
     resolver: zodResolver(SingupUserSchema),
     defaultValues: {
@@ -52,7 +52,7 @@ export function Signup () {
       navigate('/transactions')
     } catch (err) {
       reset()
-      alert('Invalid username or password')
+      alert('Invalid username')
     }
   }
 
@@ -84,7 +84,10 @@ export function Signup () {
             'Password must have at least 8 characters, one number and one uppercase letter'}
         </FormError>
 
-        <SubmitBtn type="submit">Create Account</SubmitBtn>
+        <SubmitBtn type="submit" disabled={isSubmitting}>
+          {!isSubmitting && 'Create Account'}
+          {isSubmitting && 'Creating...'}
+          </SubmitBtn>
         <LoginLink to="/login">Log In</LoginLink>
       </SignupForm>
     </SignupContainer>

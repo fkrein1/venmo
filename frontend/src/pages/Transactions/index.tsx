@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { deleteAuthToken, getAuthToken } from '../../helpers/authToken'
-import { dateFormatter } from '../../helpers/formatter'
+import { dateFormatter, priceFormatter } from '../../helpers/formatter'
 import { useTransactions } from '../../hooks/useTransactions'
 import { useUser } from '../../hooks/useUser'
 import {
@@ -24,7 +24,7 @@ export function Transactions () {
     <TransactionsContainer>
       <AccountSummary>
         {user.data?.username}
-        {user.data?.account.balance}
+        {user.isSuccess && priceFormatter.format(user.data.account.balance)}
       </AccountSummary>
       <TransactionsFilter></TransactionsFilter>
       <TransactionsTable>
@@ -32,7 +32,7 @@ export function Transactions () {
           {transactions.data?.map(transaction => (
             <tr key={transaction.id}>
               <td>{transaction.username}</td>
-              <td>{transaction.value}</td>
+              <td>{priceFormatter.format(transaction.value)}</td>
               <td>{dateFormatter.format(new Date(transaction.createdAt))}</td>
             </tr>
           ))}

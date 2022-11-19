@@ -63,8 +63,12 @@ export const SubmitBtn = styled.button`
   background-color: ${(props) => props.theme['light-blue']};
   transition: background-color 0.2s ease;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background: ${(props) => props.theme['medium-blue']};
+  }
+
+  &:disabled {
+    opacity: 0.9;
   }
 `
 export const SignupLink = styled(Link)`

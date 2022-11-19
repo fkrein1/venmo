@@ -35,7 +35,7 @@ export function Login () {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<LoginFormData>({
     resolver: zodResolver(LoginUserSchema),
     defaultValues: {
@@ -85,7 +85,10 @@ export function Login () {
             'Password must have at least 8 characters, one number and one uppercase letter'}
         </FormError>
 
-        <SubmitBtn type="submit">Log In</SubmitBtn>
+        <SubmitBtn type="submit" disabled={isSubmitting}>
+          {isSubmitting && 'Logging in...' }
+          {!isSubmitting && 'Log In' }
+          </SubmitBtn>
         <SignupLink to="/signup">Create Account</SignupLink>
       </LoginForm>
     </LoginContainer>
