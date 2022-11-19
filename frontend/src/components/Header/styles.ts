@@ -19,16 +19,28 @@ export const HeaderWrapper = styled.div`
 `
 export const Logo = styled.div`
   display: flex;
-  img {
+
+  img:nth-child(1) {
     width: 160px;
     height: 31px;
 
     @media (max-width: 640px) {
       width: 90px;
+      height: 17px
     }
 
-    @media (max-width: 320px) {
+    @media (max-width: 380px) {
       display: none;
+    }
+  }
+
+  img:nth-child(2) {
+    width: 30px;
+    height: 30px;
+    display: none;
+
+    @media (max-width: 380px) {
+      display: block;
     }
   }
 `

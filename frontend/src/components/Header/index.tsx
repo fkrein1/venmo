@@ -28,6 +28,7 @@ export function Header () {
         <Logo>
           <Link to="/">
             <img src={logo} alt="" />
+            <img src={icon} alt="" />
           </Link>
         </Logo>
         {!loggedIn && (
