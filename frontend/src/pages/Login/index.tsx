@@ -89,12 +89,9 @@ export function Login () {
         </FormError>
 
         <SubmitBtn type="submit" disabled={isSubmitting}>
-          {isSubmitting && 'Logging in...' }
-          {!isSubmitting && 'Log In' }
-          </SubmitBtn>
-          <FormError>
-            {login.isError && 'Invalid username or password'}
-        </FormError>
+          Log In
+        </SubmitBtn>
+        <FormError>{login.isError && 'Invalid username or password'}</FormError>
         <SignupLink to="/signup">Create Account</SignupLink>
       </LoginForm>
     </LoginContainer>

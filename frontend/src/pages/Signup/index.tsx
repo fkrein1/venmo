@@ -90,8 +90,7 @@ export function Signup () {
         </FormError>
 
         <SubmitBtn type="submit" disabled={isSubmitting}>
-          {!isSubmitting && 'Create Account'}
-          {isSubmitting && 'Creating...'}
+          Create Account
         </SubmitBtn>
         <FormError>{signup.isError && 'Invalid username'}</FormError>
         <LoginLink to="/login">Log In</LoginLink>
