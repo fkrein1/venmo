@@ -5,13 +5,15 @@ import * as z from 'zod'
 import icon from '../../assets/icon.svg'
 import { setAuthToken } from '../../helpers/authToken'
 import { useAuth } from '../../hooks/useAuth'
-import { postSignup } from '../../services/postSignup'
+import { useSignup } from '../../hooks/useSignup'
 import {
   FormError,
-  Icon, LoginLink,
+  Icon,
+  LoginLink,
   Password,
   SignupContainer,
-  SignupForm, SubmitBtn,
+  SignupForm,
+  SubmitBtn,
   Username
 } from './styles'
 
@@ -29,6 +31,7 @@ export type SignupFormData = z.infer<typeof SingupUserSchema>
 export function Signup () {
   const navigate = useNavigate()
   const { setLoggedIn } = useAuth()
+  const signup = useSignup()
 
   const {
     register,
@@ -46,14 +49,16 @@ export function Signup () {
   async function handleSignup (data: SignupFormData) {
     const { username, password } = data
     try {
-      const { token } = await postSignup(username, password)
-      setAuthToken(token)
-      setLoggedIn(true)
-      navigate('/transactions')
+      await signup.mutateAsync({ username, password })
     } catch (err) {
       reset()
-      alert('Invalid username')
     }
+  }
+
+  if (signup.isSuccess) {
+    setAuthToken(signup.data.token)
+    setLoggedIn(true)
+    navigate('/transactions')
   }
 
   return (
@@ -87,7 +92,8 @@ export function Signup () {
         <SubmitBtn type="submit" disabled={isSubmitting}>
           {!isSubmitting && 'Create Account'}
           {isSubmitting && 'Creating...'}
-          </SubmitBtn>
+        </SubmitBtn>
+        <FormError>{signup.isError && 'Invalid username'}</FormError>
         <LoginLink to="/login">Log In</LoginLink>
       </SignupForm>
     </SignupContainer>

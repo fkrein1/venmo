@@ -5,7 +5,7 @@ import * as z from 'zod'
 import icon from '../../assets/icon.svg'
 import { setAuthToken } from '../../helpers/authToken'
 import { useAuth } from '../../hooks/useAuth'
-import { postLogin } from '../../services/postLogin'
+import { useLogin } from '../../hooks/useLogin'
 import {
   FormError,
   Icon,
@@ -31,6 +31,7 @@ export type LoginFormData = z.infer<typeof LoginUserSchema>
 export function Login () {
   const navigate = useNavigate()
   const { setLoggedIn } = useAuth()
+  const login = useLogin()
   const {
     register,
     handleSubmit,
@@ -47,14 +48,16 @@ export function Login () {
   async function handleLogin (data: LoginFormData) {
     const { username, password } = data
     try {
-      const { token } = await postLogin(username, password)
-      setAuthToken(token)
-      navigate('/transactions')
-      setLoggedIn(true)
+      await login.mutateAsync({ username, password })
     } catch (err) {
       reset()
-      alert('Invalid username or password')
     }
+  }
+
+  if (login.isSuccess) {
+    setAuthToken(login.data?.token)
+    navigate('/transactions')
+    setLoggedIn(true)
   }
 
   return (
@@ -89,6 +92,9 @@ export function Login () {
           {isSubmitting && 'Logging in...' }
           {!isSubmitting && 'Log In' }
           </SubmitBtn>
+          <FormError>
+            {login.isError && 'Invalid username or password'}
+        </FormError>
         <SignupLink to="/signup">Create Account</SignupLink>
       </LoginForm>
     </LoginContainer>

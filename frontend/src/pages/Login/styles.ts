@@ -62,6 +62,7 @@ export const SubmitBtn = styled.button`
   color: ${(props) => props.theme.white};
   background-color: ${(props) => props.theme['light-blue']};
   transition: background-color 0.2s ease;
+  cursor: pointer;
 
   &:hover:not(:disabled) {
     background: ${(props) => props.theme['medium-blue']};
@@ -69,6 +70,7 @@ export const SubmitBtn = styled.button`
 
   &:disabled {
     opacity: 0.9;
+    cursor: not-allowed
   }
 `
 export const SignupLink = styled(Link)`
