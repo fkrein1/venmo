@@ -15,11 +15,11 @@ $ docker exec -it backend /bin/sh
 $ npm run migration
 ```
 
-You can open the application and the api docs on this URLs:
+You can open the application and the API docs on these URLs:
 <br>
 ```
-$ application: http://localhost:3000/ 
-$ api docs: http://localhost:3008/api-docs/
+$ Application: http://localhost:3000
+$ API docs: http://localhost:3008/api-docs
 ```
 
 <br>
