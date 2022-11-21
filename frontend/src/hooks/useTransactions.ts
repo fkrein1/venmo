@@ -3,7 +3,7 @@ import { getAuthToken } from '../helpers/authToken'
 
 import { api } from '../lib/axios'
 
-interface ITransaction {
+export interface ITransaction {
   id: string
   type: 'debit' | 'credit'
   value: number
