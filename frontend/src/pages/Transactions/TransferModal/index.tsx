@@ -82,7 +82,7 @@ export function TransferModal ({ setOpen }: TransferModalProps) {
           <Value>
             <input
               type="number"
-              inputMode="numeric"
+              step="0.01"
               placeholder="Value"
               {...register('transactionValue', { valueAsNumber: true })}
             />
