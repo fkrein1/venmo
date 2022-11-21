@@ -46,7 +46,11 @@ export function TransferModal ({ setOpen }: TransferModalProps) {
     const { creditUsername, transactionValue } = data
     const jwt = getAuthToken() as string
     try {
-      await transfer.mutateAsync({ creditUsername, transactionValue, jwt })
+      await transfer.mutateAsync({
+        creditUsername,
+        transactionValue,
+        jwt
+      })
       user.remove()
       transactiosn.remove()
       setOpen(false)

@@ -5,6 +5,7 @@ import * as z from 'zod'
 import icon from '../../assets/icon.svg'
 import { setAuthToken } from '../../helpers/authToken'
 import { useLogin } from '../../hooks/useLogin'
+import { useUser } from '../../hooks/useUser'
 import {
   FormError,
   Icon,
@@ -30,6 +31,7 @@ export type LoginFormData = z.infer<typeof LoginUserSchema>
 export function Login () {
   const navigate = useNavigate()
   const login = useLogin()
+  const user = useUser()
   const {
     register,
     handleSubmit,
@@ -46,6 +48,7 @@ export function Login () {
   async function handleLogin (data: LoginFormData) {
     const { username, password } = data
     try {
+      user.remove()
       await login.mutateAsync({ username, password })
     } catch (err) {
       reset()
