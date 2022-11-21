@@ -4,11 +4,12 @@ services:
     build: ./frontend
     container_name: frontend
     ports:
-      - 5173:5173
+      - 3000:3000
     platform: linux/x86_64
     working_dir: /app-frontend
     depends_on:
       - backend
+    restart: always
   backend:
     build: ./backend
     container_name: backend
@@ -19,20 +20,23 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgresql://admin:mysecretpassword@localhost:5433do/mydb?schema=public
+      - DATABASE_URL=postgresql://admin:mysecretpassword@db:5432/mydb?schema=public
       - JWT_SECRET=5eb115783777b2f872f0a412e8419685
       - PORT=3008
+    restart: always
   db:
     image: postgres
     container_name: db
     platform: linux/x86_64
     ports:
-      - 5433:5432
+      - 5432:5432
     environment:
       - POSTGRES_PASSWORD=mysecretpassword
       - POSTGRES_USER=admin
+      - POSTGRES_DB=mydb
     volumes:
       - pgdata:/data/postgres
+    restart: always
 volumes:
   pgdata:
     driver: local

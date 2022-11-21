@@ -8,8 +8,4 @@ RUN ["npm", "install"]
 
 RUN ["npm", "run", "build"]
 
-RUN ["npm", "run", "migration"]
-
-EXPOSE 3008
-
 CMD ["npm", "start"]
