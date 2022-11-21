@@ -7,7 +7,7 @@ import { errorMiddleware } from "./errors/errorMiddleware";
 import routes from "./routes";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const swaggerFile = require("./swagger.json");
+const swaggerFile = require("../swagger.json");
 
 const PORT = process.env.PORT || 3008;
 
