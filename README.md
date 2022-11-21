@@ -24,7 +24,7 @@ $ api docs: http://localhost:3008/api-docs/
 
 <br>
 <br>
-<img src="./swagger.png"/>
-<img src="./home.png"/>
-<img src="./transactions.png"/>
+<img src="./images/swagger.png"/>
+<img src="./images/home.png"/>
+<img src="./images/transactions.png"/>
 
