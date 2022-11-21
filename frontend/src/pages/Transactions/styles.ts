@@ -17,6 +17,12 @@ export const AccountSummary = styled.div`
   font-size: 24px;
 `
 
+export const AccountBalanceWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+`
+
 export const AccountBalance = styled.div`
   margin-top: 20px;
   p {
@@ -24,6 +30,23 @@ export const AccountBalance = styled.div`
     font-weight: 500;
     font-size: 32px;
   }
+`
+
+export const SendMoneyBtn = styled.button`
+  border-radius: 24px;
+  border: none;
+  font-size: 14px;
+  padding: 10px 20px;
+  font-weight: 500;
+  color: ${(props) => props.theme.white};
+  background-color: ${(props) => props.theme['light-blue']};
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+
+  &:hover{
+    background: ${(props) => props.theme['medium-blue']};
+  }
+
 `
 
 export const TransactionsFilter = styled.div`

@@ -1,3 +1,4 @@
+import * as Dialog from '@radix-ui/react-dialog'
 import { isSameDay } from 'date-fns'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -5,12 +6,15 @@ import { deleteAuthToken } from '../../helpers/authToken'
 import { dateFormatter, priceFormatter } from '../../helpers/formatter'
 import { ITransaction, useTransactions } from '../../hooks/useTransactions'
 import { useUser } from '../../hooks/useUser'
+import { TransferModal } from './TransferModal'
 
 import {
   AccountBalance,
+  AccountBalanceWrapper,
   AccountSummary,
   DateFilter,
   PriceHighlight,
+  SendMoneyBtn,
   TransactionsContainer,
   TransactionsFilter,
   TransactionsTable,
@@ -19,6 +23,7 @@ import {
 } from './styles'
 
 export function Transactions () {
+  const [open, setOpen] = useState(false)
   const [transactionType, setTransactionType] = useState('all')
   const [transactionDate, setTransactionDate] = useState('')
   const navigate = useNavigate()
@@ -62,12 +67,21 @@ export function Transactions () {
           <p>Welcome back,</p>
           <p>{user.data?.username}</p>
         </AccountSummary>
-        <AccountBalance>
-          <span>Balance</span>
-          <p>
-            {user.isSuccess && priceFormatter.format(user.data.account.balance)}
-          </p>
-        </AccountBalance>
+        <AccountBalanceWrapper>
+          <AccountBalance>
+            <span>Balance</span>
+            <p>
+              {user.isSuccess &&
+                priceFormatter.format(user.data.account.balance)}
+            </p>
+          </AccountBalance>
+          <Dialog.Root open={open} onOpenChange={setOpen}>
+            <Dialog.Trigger asChild={true}>
+              <SendMoneyBtn type="button">Send Money</SendMoneyBtn>
+            </Dialog.Trigger>
+            <TransferModal setOpen={setOpen}/>
+          </Dialog.Root>
+        </AccountBalanceWrapper>
         <TransactionsFilter>
           <TypeFilter>
             <label htmlFor="transactionType">Transaction type</label>

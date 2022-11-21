@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import * as z from 'zod'
 import icon from '../../assets/icon.svg'
 import { setAuthToken } from '../../helpers/authToken'
-import { useAuth } from '../../hooks/useAuth'
 import { useSignup } from '../../hooks/useSignup'
 import {
   FormError,
@@ -30,7 +29,6 @@ export type SignupFormData = z.infer<typeof SingupUserSchema>
 
 export function Signup () {
   const navigate = useNavigate()
-  const { setLoggedIn } = useAuth()
   const signup = useSignup()
 
   const {
@@ -57,7 +55,6 @@ export function Signup () {
 
   if (signup.isSuccess) {
     setAuthToken(signup.data.token)
-    setLoggedIn(true)
     navigate('/transactions')
   }
 
