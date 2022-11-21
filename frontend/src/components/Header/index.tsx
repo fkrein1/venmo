@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import icon from '../../assets/icon.svg'
 import logo from '../../assets/logo.svg'
 import { deleteAuthToken } from '../../helpers/authToken'
-import { useAuth } from '../../hooks/useAuth'
+import { useUser } from '../../hooks/useUser'
 import {
   HeaderContainer,
   HeaderWrapper,
@@ -13,12 +13,12 @@ import {
 } from './styles'
 
 export function Header () {
-  const { loggedIn, setLoggedIn } = useAuth()
   const navigate = useNavigate()
+  const user = useUser()
 
   function handleLogoutBtn () {
-    setLoggedIn(false)
     deleteAuthToken()
+    user.remove()
     navigate('/')
   }
 
@@ -31,7 +31,7 @@ export function Header () {
             <img src={icon} alt="" />
           </Link>
         </Logo>
-        {!loggedIn && (
+        {user.isError && (
           <Navigation>
             <Link to="/login">Log In</Link>
             <Link to="/signup">
@@ -43,7 +43,7 @@ export function Header () {
           </Navigation>
         )}
 
-        {loggedIn && (
+        {user.isSuccess && (
           <Navigation>
             <LogoutBtn onClick={handleLogoutBtn}>Log out</LogoutBtn>
             <Link to="/transactions">
