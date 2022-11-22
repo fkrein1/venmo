@@ -13,8 +13,6 @@ services:
   backend:
     build: ./backend
     container_name: backend
-    volumes: 
-      - ./backend/src:/app-backend/src
     ports:
       - 3008:3008
     platform: linux/x86_64
