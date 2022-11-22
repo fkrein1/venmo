@@ -16,6 +16,7 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "prettier", "eslint-plugin-import-helpers"],
+  "ignorePatterns": ["/src/@types/mocha/index.d.ts"],
   "rules": {
     "camelcase": "off",
     "prettier/prettier": "error",
