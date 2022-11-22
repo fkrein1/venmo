@@ -21,7 +21,7 @@ $ Application: http://localhost:3000
 $ API docs: http://localhost:3008/api-docs
 ```
 
-To run the server coverage tests use the commands:
+To run the backend coverage tests use the commands:
 <br>
 
 ```
@@ -33,4 +33,4 @@ $ npm run test:coverage
 <img src="./images/home.png"/>
 <img src="./images/transactions.png"/>
 <img src="./images/swagger.png"/>
-<img src="./images/tests.png"/>
+<img src="./images/coverage.png"/>
