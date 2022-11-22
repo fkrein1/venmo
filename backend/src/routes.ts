@@ -3,7 +3,7 @@ import { Router } from "express";
 import { ensureAuthenticated } from "./middleware/ensureAuthenticated";
 import { CreateTransactionUseController } from "./modules/useCases/createTransaction/CreateTransactionController";
 import { CreateUserController } from "./modules/useCases/createUser/CreateUserController";
-import { GetTransactionsController } from "./modules/useCases/getTransactions/GetTransacrionsController";
+import { GetTransactionsController } from "./modules/useCases/getTransactions/GetTransactionsController";
 import { GetUserController } from "./modules/useCases/getUser/GetUserController";
 import { LoginUserController } from "./modules/useCases/loginUser/LoginUserController";
 
