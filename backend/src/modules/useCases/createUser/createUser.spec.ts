@@ -8,11 +8,10 @@ import { app } from "../../../server";
 chai.use(chaiHttp);
 const { request, expect } = chai;
 
-describe("Test /auth/login endpoint", () => {
+describe("Test /auth/signup endpoint", () => {
   const username = "joao";
   const password = "1234567A";
-  const invalidUsername = "pedro";
-  const invalidPassword = "A1234567";
+  const newUser = "felipe";
 
   before(async () => {
     await prisma.users.create({
@@ -32,16 +31,25 @@ describe("Test /auth/login endpoint", () => {
     await prisma.accounts.deleteMany();
   });
 
-  it("Valid user should return token and 200", async () => {
+  it("Valid user data should return token and 201", async () => {
     const response = await request(app)
-      .post("/auth/login")
-      .send({ username, password });
-    expect(response).to.have.status(200);
+      .post("/auth/signup")
+      .send({ username: newUser, password });
+    expect(response).to.have.status(201);
     expect(response.body).to.have.property("token");
   });
 
+  it("User already exists should error message and 400", async () => {
+    const response = await request(app)
+      .post("/auth/signup")
+      .send({ username, password });
+    expect(response).to.have.status(400);
+    expect(response.body).to.have.property("message");
+    expect(response.body.message).to.eq("User already exists");
+  });
+
   it("Invalid user schema should return error message and 400", async () => {
-    const response = await request(app).post("/auth/login").send({ username });
+    const response = await request(app).post("/auth/signup").send({ username });
     expect(response).to.have.status(400);
     expect(response.body).to.have.property("message");
     expect(response.body.message).to.eq("Invalid user schema");
@@ -49,7 +57,7 @@ describe("Test /auth/login endpoint", () => {
 
   it("Usename with less than 3 character should return error message and 400", async () => {
     const response = await request(app)
-      .post("/auth/login")
+      .post("/auth/signup")
       .send({ username: "as", password });
     expect(response).to.have.status(400);
     expect(response.body).to.have.property("message");
@@ -58,7 +66,7 @@ describe("Test /auth/login endpoint", () => {
 
   it("Password without number should return error message and 400", async () => {
     const response = await request(app)
-      .post("/auth/login")
+      .post("/auth/signup")
       .send({ username, password: "asddaAsdadawead" });
     expect(response).to.have.status(400);
     expect(response.body).to.have.property("message");
@@ -67,7 +75,7 @@ describe("Test /auth/login endpoint", () => {
 
   it("Password without uppercase letter should return error message and 400", async () => {
     const response = await request(app)
-      .post("/auth/login")
+      .post("/auth/signup")
       .send({ username, password: "asdda2sdadawead" });
     expect(response).to.have.status(400);
     expect(response.body).to.have.property("message");
@@ -76,27 +84,10 @@ describe("Test /auth/login endpoint", () => {
 
   it("Password with less than 8 characters hould return error message and 400", async () => {
     const response = await request(app)
-      .post("/auth/login")
+      .post("/auth/signup")
       .send({ username, password: "aasd2A" });
     expect(response).to.have.status(400);
     expect(response.body).to.have.property("message");
     expect(response.body.message).to.eq("Invalid user schema");
-  });
-
-  it("Invalid password should error message and 401", async () => {
-    const response = await request(app)
-      .post("/auth/login")
-      .send({ username, password: invalidPassword });
-    expect(response).to.have.status(401);
-    expect(response.body).to.have.property("message");
-    expect(response.body.message).to.eq("Invalid user or password");
-  });
-  it("Invalid user should error message and 401", async () => {
-    const response = await request(app)
-      .post("/auth/login")
-      .send({ username: invalidUsername, password });
-    expect(response).to.have.status(401);
-    expect(response.body).to.have.property("message");
-    expect(response.body.message).to.eq("Invalid user or password");
   });
 });

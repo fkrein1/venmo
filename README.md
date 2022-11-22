@@ -21,7 +21,16 @@ $ Application: http://localhost:3000
 $ API docs: http://localhost:3008/api-docs
 ```
 
+To run the server coverage tests use the commands:
+<br>
+
+```
+$ docker exec -it backend /bin/sh
+$ npm run test:coverage
+```
+
 <br>
 <img src="./images/home.png"/>
 <img src="./images/transactions.png"/>
 <img src="./images/swagger.png"/>
+<img src="./images/tests.png"/>
