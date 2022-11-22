@@ -72,7 +72,7 @@ export function Transactions () {
             <span>Balance</span>
             <p>
               {user.isSuccess &&
-                priceFormatter.format(user.data.account.balance)}
+                priceFormatter.format(user.data?.account.balance)}
             </p>
           </AccountBalance>
           <Dialog.Root open={open} onOpenChange={setOpen}>
