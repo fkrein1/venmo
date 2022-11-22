@@ -14,7 +14,7 @@ describe("Test /auth/me endpoint", async () => {
   const password = "1234567A";
   const invalidToken = "daljdalsjdja.dasjdajd.231das";
 
-  after(async () => {
+  afterEach(async () => {
     await prisma.users.deleteMany();
     await prisma.accounts.deleteMany();
   });
@@ -29,6 +29,17 @@ describe("Test /auth/me endpoint", async () => {
     expect(response.body.username).to.eq(username);
     expect(response.body).to.have.property("account");
     expect(response.body.account.balance).to.eq(100);
+  });
+
+  it("Valid token but user not found return error message and 401", async () => {
+    const { token } = await createUserUseCase.execute({ username, password });
+    await prisma.users.delete({ where: { username } });
+    const response = await request(app)
+      .get("/auth/me")
+      .set({ Authorization: `Bearer ${token}` });
+    expect(response).to.have.status(401);
+    expect(response.body).to.have.property("message");
+    expect(response.body.message).to.eq("Invalid token");
   });
 
   it("Empty token should return error messsage and 401", async () => {
