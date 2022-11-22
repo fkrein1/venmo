@@ -13,12 +13,15 @@ services:
   backend:
     build: ./backend
     container_name: backend
+    volumes: 
+      - ./backend/src:/app-backend/src
     ports:
       - 3008:3008
     platform: linux/x86_64
     working_dir: /app-backend
     depends_on:
       - db
+      - db-tests
     environment:
       - DATABASE_URL=postgresql://admin:mysecretpassword@db:5432/mydb?schema=public
       - JWT_SECRET=5eb115783777b2f872f0a412e8419685
@@ -36,6 +39,17 @@ services:
       - POSTGRES_DB=mydb
     volumes:
       - pgdata:/data/postgres
+    restart: always
+  db-tests:
+    image: postgres
+    container_name: db-tests
+    platform: linux/x86_64
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=tests
     restart: always
 volumes:
   pgdata:

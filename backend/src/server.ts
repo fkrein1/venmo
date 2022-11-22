@@ -11,7 +11,7 @@ const swaggerFile = require("../swagger.json");
 
 const PORT = process.env.PORT || 3008;
 
-const app = express();
+export const app = express();
 app.use(express.json());
 app.use(cors());
 

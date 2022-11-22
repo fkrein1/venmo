@@ -17,7 +17,7 @@ import {
   Username
 } from './styles'
 
-const SingupUserSchema = z.object({
+const SignupUserSchema = z.object({
   username: z.string().min(3),
   password: z
     .string()
@@ -26,7 +26,7 @@ const SingupUserSchema = z.object({
     .regex(/.*\d.*/)
 })
 
-export type SignupFormData = z.infer<typeof SingupUserSchema>
+export type SignupFormData = z.infer<typeof SignupUserSchema>
 
 export function Signup () {
   const navigate = useNavigate()
@@ -39,7 +39,7 @@ export function Signup () {
     reset,
     formState: { errors, isSubmitting }
   } = useForm<SignupFormData>({
-    resolver: zodResolver(SingupUserSchema),
+    resolver: zodResolver(SignupUserSchema),
     defaultValues: {
       username: '',
       password: ''

@@ -11,8 +11,6 @@ To run locally clone the repository and run the following commands:
 
 ```
 $ docker-compose up -d
-$ docker exec -it backend /bin/sh
-$ npm run migration
 ```
 
 You can open the application and the API docs on these URLs:

@@ -5,7 +5,7 @@ import { prisma } from "../../../database/prismaClient";
 import { AppError } from "../../../errors/AppError";
 import { IUserDTO, UserSchema } from "../../dtos/IUserDTO";
 
-export class AuthenticateUserUseCase {
+export class LoginUserUseCase {
   async execute({ username, password }: IUserDTO) {
     const parsed = UserSchema.safeParse({ username, password });
     if (!parsed.success) {
